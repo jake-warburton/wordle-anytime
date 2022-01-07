@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { words } from "../../public/static/words";
 
 import Grid from "../components/grid";
+import Keyboard from "../components/keyboard";
 
 export default function Home() {
   const [victory, SetVictory] = useState(false);
@@ -117,9 +118,11 @@ export default function Home() {
           <div
             style={{
               display: `flex`,
+              flexDirection: `column`,
+              margin: `10px 0px`,
             }}
           >
-            {victory ? `Good job!` : `You lost! The word was ${answer}`}
+            <p>{victory ? `Good job!` : `You lost! The word was ${answer}`}</p>
 
             <button
               onClick={() => {
@@ -133,6 +136,9 @@ export default function Home() {
           <div
             style={{
               display: `flex`,
+              alignItems: `center`,
+              justifyContent: `center`,
+              margin: `10px 0px`,
             }}
           >
             <form
@@ -172,6 +178,16 @@ export default function Home() {
             )}
           </div>
         )}
+
+        <Keyboard
+          answer={answer}
+          guessArray={guessArray}
+          SetGuessInput={(input) => {
+            const newGuessInput = guessInput + input;
+
+            SetGuessInput(newGuessInput.slice(0, 5));
+          }}
+        />
       </div>
     </>
   );
