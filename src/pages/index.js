@@ -13,6 +13,10 @@ export default function Home() {
 
   const NewGame = () => {
     //  Wipe the board clean and get a new answer
+    SetVictory(false);
+    SetGuessInput("");
+    SetFeedback(null);
+
     const newGuessArray = [];
     const rowsLength = 6;
     const columnsLength = 5;
@@ -115,7 +119,7 @@ export default function Home() {
               display: `flex`,
             }}
           >
-            {victory ? `Good job!` : `You lost!`}
+            {victory ? `Good job!` : `You lost! The word was ${answer}`}
 
             <button
               onClick={() => {
