@@ -26,6 +26,7 @@ const Grid = (props) => {
     <>
       {guessArray.map((row, rowIndex) => (
         <div
+          key={`row-${rowIndex}`}
           style={{
             display: `flex`,
             flexDirection: `row`,
