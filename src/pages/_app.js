@@ -1,8 +1,9 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import theme from "../theme.tsx";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ChakraProvider>
+    <ChakraProvider resetCSS theme={theme} portalZIndex={99}>
       <Component {...pageProps} />
     </ChakraProvider>
   );
