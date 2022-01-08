@@ -1,7 +1,16 @@
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import { Text, Flex, Box, Button, Input } from "@chakra-ui/react";
+import {
+  Text,
+  Flex,
+  Box,
+  Button,
+  Input,
+  Switch,
+  useColorMode,
+} from "@chakra-ui/react";
 import { IoMdRefresh } from "react-icons/io";
+import { FiMoon, FiSun } from "react-icons/fi";
 
 import Grid from "../components/grid";
 import Keyboard from "../components/keyboard";
@@ -10,6 +19,8 @@ import Keyboard from "../components/keyboard";
 import { words } from "../../public/static/words";
 
 export default function Home() {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   const [victory, SetVictory] = useState(false);
   const [guessArray, SetGuessArray] = useState([]);
   const [guessInput, SetGuessInput] = useState("");
@@ -108,6 +119,27 @@ export default function Home() {
         <Text fontSize={28} fontWeight={700}>
           Wordle Whenever
         </Text>
+
+        <Flex ml={10} mt={1} alignItems="center" justifyContent="center">
+          <Box
+            fontSize="2xl"
+            mr={2}
+            pb={1}
+            onClick={() => {
+              toggleColorMode();
+            }}
+            cursor="pointer"
+          >
+            {colorMode === "light" ? <FiSun /> : <FiMoon />}
+          </Box>
+          <Switch
+            size="md"
+            onChange={() => {
+              toggleColorMode();
+            }}
+            isChecked={colorMode === "dark"}
+          />
+        </Flex>
       </Flex>
       <Flex
         style={{
