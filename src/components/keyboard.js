@@ -66,7 +66,7 @@ const Keyboard = (props) => {
           }}
         >
           {row.map((column, columnIndex) => (
-            <React.Fragment>
+            <React.Fragment key={`column-${rowIndex}-${columnIndex}`}>
               {rowIndex === 2 && columnIndex === 0 ? (
                 <button
                   key={`column-${rowIndex}-${columnIndex}`}
@@ -95,7 +95,6 @@ const Keyboard = (props) => {
                 ``
               )}
               <button
-                key={`column-${rowIndex}-${columnIndex}`}
                 style={{
                   background: GetKeyColor(column),
                   width: `30px`,
