@@ -1,9 +1,13 @@
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import { words } from "../../public/static/words";
+import { Text, Flex, Box, Button, Input } from "@chakra-ui/react";
+import { IoMdRefresh } from "react-icons/io";
 
 import Grid from "../components/grid";
 import Keyboard from "../components/keyboard";
+
+//  Data
+import { words } from "../../public/static/words";
 
 export default function Home() {
   const [victory, SetVictory] = useState(false);
@@ -64,6 +68,7 @@ export default function Home() {
 
   const AttemptGuess = (newGuess) => {
     SetRow(newGuess);
+    SetGuessInput("");
 
     let victoryFlag = false;
     //  If the guess is correct, set victory condition
@@ -99,41 +104,49 @@ export default function Home() {
       <Head>
         <title>Wordle Whenever</title>
       </Head>
-      <div
+      <Flex alignItems="center" justifyContent="center">
+        <Text fontSize={28} fontWeight={700}>
+          Wordle Whenever
+        </Text>
+      </Flex>
+      <Flex
         style={{
           width: `100%`,
-          height: `90vh`,
           display: `flex`,
           flexDirection: `column`,
           justifyContent: `center`,
           alignItems: `center`,
         }}
       >
-        <div>
+        <Box>
           <Grid answer={answer} guessArray={guessArray} />
-        </div>
+        </Box>
 
         {(guessArray.length > 0 && guessArray[guessArray.length - 1][0]) ||
         victory ? (
-          <div
+          <Box
             style={{
               display: `flex`,
               flexDirection: `column`,
               margin: `10px 0px`,
             }}
           >
-            <p>{victory ? `Good job!` : `You lost! The word was ${answer}`}</p>
+            <Text fontSize={21}>
+              {victory ? `Good job!` : `You lost! The word was ${answer}`}
+            </Text>
 
-            <button
+            <Button
               onClick={() => {
                 NewGame();
               }}
             >
-              New Game
-            </button>
-          </div>
+              <Flex alignItems="center" justifyContent="center">
+                <Box mr={2}>New Game</Box> <IoMdRefresh />
+              </Flex>
+            </Button>
+          </Box>
         ) : (
-          <div
+          <Box
             style={{
               display: `flex`,
               alignItems: `center`,
@@ -144,39 +157,36 @@ export default function Home() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                SetGuessInput("");
+                if (guessInput.length == 5) {
+                  AttemptGuess(guessInput);
+                }
               }}
             >
-              <input
-                value={guessInput}
-                onChange={(e) => {
-                  SetGuessInput(e.target.value.slice(0, 5));
-                }}
-              />
+              <Flex>
+                <Input
+                  value={guessInput}
+                  onChange={(e) => {
+                    SetGuessInput(e.target.value.slice(0, 5));
+                  }}
+                  mr={2}
+                />
 
-              <button
-                onClick={() => {
-                  if (guessInput.length == 5) {
-                    AttemptGuess(guessInput);
-                  }
-                }}
-              >
-                Guess
-              </button>
+                <Button type="submit">Guess</Button>
+              </Flex>
             </form>
 
             {feedback ? (
-              <div
+              <Box
                 style={{
                   color: `red`,
                 }}
               >
                 {feedback}
-              </div>
+              </Box>
             ) : (
               ``
             )}
-          </div>
+          </Box>
         )}
 
         <Keyboard
@@ -184,11 +194,17 @@ export default function Home() {
           guessArray={guessArray}
           SetGuessInput={(input) => {
             const newGuessInput = guessInput + input;
-
             SetGuessInput(newGuessInput.slice(0, 5));
           }}
+          RemoveGuessInput={() => {
+            const newGuessInput = guessInput.slice(0, guessInput.length - 1);
+            SetGuessInput(newGuessInput.slice(0, 5));
+          }}
+          AttemptGuess={() => {
+            AttemptGuess(guessInput);
+          }}
         />
-      </div>
+      </Flex>
     </>
   );
 }

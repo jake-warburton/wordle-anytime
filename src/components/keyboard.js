@@ -1,7 +1,10 @@
 import React from "react";
+import { Flex, Button } from "@chakra-ui/react";
+import { BsFillBackspaceFill, BsArrowReturnLeft } from "react-icons/bs";
 
 const Keyboard = (props) => {
-  const { guessArray, answer, SetGuessInput } = props;
+  const { guessArray, answer, SetGuessInput, RemoveGuessInput, AttemptGuess } =
+    props;
 
   const keyboardRows = [
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -54,37 +57,94 @@ const Keyboard = (props) => {
   return (
     <>
       {keyboardRows.map((row, rowIndex) => (
-        <div
+        <Flex
           key={`row-${rowIndex}`}
           style={{
             display: `flex`,
             flexDirection: `row`,
-            margin: `8px`,
+            margin: `5px`,
           }}
         >
           {row.map((column, columnIndex) => (
-            <div
-              key={`column-${rowIndex}-${columnIndex}`}
-              style={{
-                background: GetKeyColor(column),
-                borderRadius: `6px`,
-                width: `30px`,
-                height: `40px`,
-                margin: `1px`,
-                display: `flex`,
-                justifyContent: `center`,
-                alignItems: `center`,
-                color: `#fff`,
-                cursor: `pointer`,
-              }}
-              onClick={() => {
-                SetGuessInput(column);
-              }}
-            >
-              {column ? column : ``}
-            </div>
+            <React.Fragment>
+              {rowIndex === 2 && columnIndex === 0 ? (
+                <button
+                  key={`column-${rowIndex}-${columnIndex}`}
+                  style={{
+                    background: GetKeyColor(column),
+                    width: `30px`,
+                    height: `40px`,
+                    margin: `1px`,
+                    display: `flex`,
+                    justifyContent: `center`,
+                    alignItems: `center`,
+                    color: `#fff`,
+                    cursor: `pointer`,
+                    border: `1px #808080 solid`,
+                    borderRadius: `4px`,
+                  }}
+                  onClick={() => {
+                    RemoveGuessInput();
+                  }}
+                >
+                  <span style={{ fontSize: `1.1rem` }}>
+                    <BsFillBackspaceFill />
+                  </span>
+                </button>
+              ) : (
+                ``
+              )}
+              <button
+                key={`column-${rowIndex}-${columnIndex}`}
+                style={{
+                  background: GetKeyColor(column),
+                  width: `30px`,
+                  height: `40px`,
+                  margin: `1px`,
+                  display: `flex`,
+                  justifyContent: `center`,
+                  alignItems: `center`,
+                  color: `#fff`,
+                  cursor: `pointer`,
+                  border: `1px #808080 solid`,
+                  borderRadius: `4px`,
+                }}
+                onClick={() => {
+                  SetGuessInput(column);
+                }}
+              >
+                {column ? column : ``}
+              </button>
+              {rowIndex === 2 && columnIndex === row.length - 1 ? (
+                <button
+                  key={`column-${rowIndex}-${columnIndex}`}
+                  style={{
+                    background: GetKeyColor(column),
+                    width: `30px`,
+                    height: `40px`,
+                    margin: `1px`,
+                    display: `flex`,
+                    justifyContent: `center`,
+                    alignItems: `center`,
+                    color: `#fff`,
+                    cursor: `pointer`,
+                    border: `1px #808080 solid`,
+                    borderRadius: `4px`,
+                  }}
+                  onClick={() => {
+                    AttemptGuess();
+                  }}
+                >
+                  <span style={{ fontSize: `1.1rem` }}>
+                    <BsArrowReturnLeft />
+                  </span>
+                </button>
+              ) : (
+                ``
+              )}
+            </React.Fragment>
           ))}
-        </div>
+        </Flex>
       ))}
     </>
   );
