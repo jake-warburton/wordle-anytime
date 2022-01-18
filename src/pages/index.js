@@ -18,6 +18,7 @@ import Keyboard from "../components/keyboard";
 
 //  Data
 import { words } from "../../public/static/words";
+import { spellcheckWords } from "../../public/static/spellcheck-words";
 import { sort } from "../functions/quicksort";
 import { SearchSortedWordsList } from "../functions/search-sorted-words-list";
 import { CreateSeed, UseSeed } from "../functions/seed";
@@ -35,7 +36,14 @@ export default function Home() {
   const [seed, SetSeed] = useState(null);
   const [answer, SetAnswer] = useState(null);
   const [wordsSorted, SetWordsSorted] = useState(
-    sort(words, (a, b) => {
+    sort(spellcheckWords, (a, b) => {
+      if (a < b) return -1;
+      else if (a > b) return 1;
+      else return 0;
+    })
+  );
+  const [spellCheckWordsSorted, SetSpellCheckWordsSorted] = useState(
+    sort(spellcheckWords, (a, b) => {
       if (a < b) return -1;
       else if (a > b) return 1;
       else return 0;
@@ -155,7 +163,7 @@ export default function Home() {
   const AttemptGuess = (newGuess) => {
     const thisGuess = newGuess.toUpperCase();
 
-    if (SearchSortedWordsList(thisGuess, wordsSorted)) {
+    if (SearchSortedWordsList(thisGuess.toLowerCase(), spellCheckWordsSorted)) {
       SetRow(thisGuess);
       SetGuessInput("");
 

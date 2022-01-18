@@ -72,7 +72,8 @@ export const SearchSortedWordsList = (needle, haystack) => {
   //  If working up and find W, only work up from now on until find word or letter change.
   //  If working down and find W, only work down from now on until find word or letter change.
 
-  const needleAlphabetIndex = alphabetArray.indexOf(needle[0]) + 1;
+  const needleAlphabetIndex =
+    alphabetArray.indexOf(needle[0].toUpperCase()) + 1;
 
   let startingPoint = haystackCellSize * needleAlphabetIndex;
 
@@ -86,7 +87,7 @@ export const SearchSortedWordsList = (needle, haystack) => {
     const results = NarrowDown(
       startingPoint,
       needleAlphabetIndex,
-      alphabetArray.indexOf(haystack[startingPoint][0]) + 1,
+      alphabetArray.indexOf(haystack[startingPoint].toUpperCase()[0]) + 1,
       haystackCellSize,
       needle,
       haystack
