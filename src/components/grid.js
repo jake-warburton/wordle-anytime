@@ -9,18 +9,18 @@ const Grid = (props) => {
   return (
     <>
       {guessArray.map((row, rowIndex) => (
-        <Flex key={`row-${rowIndex}`} m={5}>
+        <Flex key={`row-${rowIndex}`} m={2}>
           {row.map((column, columnIndex) => (
             <Box
+              w={["50px", "60px", "70px"]}
+              h={["50px", "60px", "70px"]}
               key={`column-${rowIndex}-${columnIndex}`}
               style={{
                 background:
                   column.length > 0
                     ? GetColor(answer, columnIndex, column)
-                    : "rgb(36, 36, 36)",
-                borderRadius: `6px`,
-                width: `50px`,
-                height: `50px`,
+                    : "rgba(36, 36, 36, 0.9)",
+                borderRadius: `2px`,
                 display: `flex`,
                 justifyContent: `center`,
                 alignItems: `center`,

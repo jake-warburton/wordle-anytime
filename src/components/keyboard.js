@@ -15,10 +15,10 @@ const Keyboard = (props) => {
   const GetKeyColor = (letter) => {
     const colors = [
       "",
-      `rgb(36, 36, 36)`,
-      `rgb(111, 111, 111)`,
-      `rgb(176, 150, 7)`,
-      `rgb(27, 128, 6)`,
+      `rgba(36, 36, 36, 0.9)`,
+      `rgba(111, 111, 111, 0.9)`,
+      `rgba(176, 150, 7, 0.9)`,
+      `rgba(27, 128, 6, 0.9)`,
     ];
 
     let letterValue = 1;
@@ -68,7 +68,10 @@ const Keyboard = (props) => {
           {row.map((column, columnIndex) => (
             <React.Fragment key={`column-${rowIndex}-${columnIndex}`}>
               {rowIndex === 2 && columnIndex === 0 ? (
-                <button
+                <Button
+                  minWidth={0}
+                  py={[0, 5, 8]}
+                  px={[6, 7, 10]}
                   key={`column-${rowIndex}-${columnIndex}`}
                   style={{
                     background: GetKeyColor(column),
@@ -90,11 +93,14 @@ const Keyboard = (props) => {
                   <span style={{ fontSize: `1.1rem` }}>
                     <BsFillBackspaceFill />
                   </span>
-                </button>
+                </Button>
               ) : (
                 ``
               )}
-              <button
+              <Button
+                minWidth={0}
+                py={[0, 5, 8]}
+                px={[0, 5, 6]}
                 style={{
                   background: GetKeyColor(column),
                   width: `30px`,
@@ -113,9 +119,12 @@ const Keyboard = (props) => {
                 }}
               >
                 {column ? column : ``}
-              </button>
+              </Button>
               {rowIndex === 2 && columnIndex === row.length - 1 ? (
-                <button
+                <Button
+                  minWidth={0}
+                  py={[0, 5, 8]}
+                  px={[6, 7, 10]}
                   key={`column-${rowIndex}-${columnIndex}`}
                   style={{
                     background: GetKeyColor(column),
@@ -137,7 +146,7 @@ const Keyboard = (props) => {
                   <span style={{ fontSize: `1.1rem` }}>
                     <BsArrowReturnLeft />
                   </span>
-                </button>
+                </Button>
               ) : (
                 ``
               )}
